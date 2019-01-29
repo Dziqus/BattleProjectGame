@@ -1,0 +1,7 @@
+======================================
+Statistics: Berserker  Tank  Wizzard
+Health:       1000     1200    800  
+Max Attack:   140      100     200  
+Max Defense:  30       60      20  
+======================================
+press enter key to continue...

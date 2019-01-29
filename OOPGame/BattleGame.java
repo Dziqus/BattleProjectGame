@@ -1,14 +1,18 @@
 package OOPGame;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 import java.util.Scanner;
+import OOPGame.menuText;
 
 public class BattleGame
 {
   public static void main(String args[]) throws InterruptedException, IOException
   {
-    menuText.mainMenu();
+    menuText.homeScreen();
   }
 
   static void startGame() throws InterruptedException
@@ -17,33 +21,38 @@ public class BattleGame
 
     System.out.print("Name the first warrior:");
     String input1 = user_input.next();
-    chosingClass(user_input);
-    int class1 = user_input.nextInt();
     Warrior warrior1 = new Warrior(input1, 100, 100, 100);
-    Warrior.classChanger(warrior1, class1);
-
+    Warrior.classChanger(warrior1, chosingClass(user_input));
     
     System.out.print("Name the second warrior:");
     String input2 = user_input.next();
-    chosingClass(user_input);
-    int class2 = user_input.nextInt();
     Warrior warrior2 = new Warrior(input2, 100, 100, 100);
-    Warrior.classChanger(warrior2, class2);
-
+    Warrior.classChanger(warrior2, chosingClass(user_input));
+    
+    checkWarriorName(warrior1, warrior2);
     Battle.startFight(warrior1, warrior2);
   }
 
-  private static void chosingClass(Scanner user_input)
+  private static void checkWarriorName(Warrior warrior1, Warrior warrior2) throws InterruptedException
   {
-    System.out.println("Chose your warrior class:"
-            + "\n[1] Berserker"
-            + "\n[2] Tank"
-            + "\n[3] Wizzard");
+    if (warrior1.name.equals(warrior2.name))
+    {
+      warrior1.name += "1";
+      warrior2.name += "2";
+      System.out.println("Unfortunately warriors names are the same so we changed it to "+warrior1.name+" and "+warrior2.name);
+      Thread.sleep(1000);
+    }
+  }
+
+  private static int chosingClass(Scanner user_input)
+  {
+    menuText.filePrinter("ClassChooser.txt");
     while (!user_input.hasNextInt())
     {
       System.out.println("Input is not a number!");
       user_input.nextLine();
     }
+    return user_input.nextInt();
   }
 }
 
@@ -84,6 +93,9 @@ class Warrior
       warrior.attkMax = 200;
       warrior.blckMax = 20;
     }
+    else {
+      System.out.println("Wrong class!");
+    }
   }
 
   public static int Attack(Warrior warrior)
@@ -120,9 +132,12 @@ class Battle
           throws InterruptedException
   {
     System.out.println("\n================================\n"
-            + warriorA.name + " chose what you want to do:"
+            + warriorA.name + " choose what you want to do:"
             + "\n[1] Attack\n[2] Block\n[3] Heal Potion"
             + "\n================================");
+  //  Path path = Paths.get("TextMenus/BattleActionMenu.txt");
+    
+    
     checkIfCanDoAction(warriorA, actionChoser);
     int action1 = actionChoser.nextInt();
     actionGoing(warriorA, warriorB, action1);
@@ -148,11 +163,13 @@ class Battle
     if (action == 1)
     {
       getAttackResult(warrior1, warrior2, damageRandomizer(warrior1, warrior2, action));
+      checkWhoWin(warrior1, warrior2);
       getAttackResult(warrior2, warrior1, damageRandomizer(warrior2, warrior1, 0));
     }
     else if (action == 2)
     {
       getAttackResult(warrior1, warrior2, damageRandomizer(warrior1, warrior2, 0));
+      checkWhoWin(warrior1, warrior2);
       getAttackResult(warrior2, warrior1, damageRandomizer(warrior2, warrior1, action));
     }
     else if (action == 3)
@@ -170,14 +187,15 @@ class Battle
     if (damage <= 0)
     {
       System.out.println("\nWarrior " + warriorB.name + " blocked the attack!");
-      Thread.sleep(300);
+      Thread.sleep(1000);
     }
     else
     {
       System.out.println("\nWarrior " + warriorA.name + " did " + damage + " to " + warriorB.name);
       warriorB.health -= damage;
+      Thread.sleep(500);
       System.out.println("Warrior " + warriorB.name + " has " + warriorB.health + " Health.");
-      Thread.sleep(300);
+      Thread.sleep(1000);
     }
   }
 
@@ -201,10 +219,12 @@ class Battle
     if (warrior1.health <= 0)
     {
       System.out.println("\nWarrior " + warrior1.name + " has died and " + warrior2.name + " is Victorious!");
+      return;
     }
     else if (warrior2.health <= 0)
     {
       System.out.println("\nWarrior " + warrior2.name + " has died and " + warrior1.name + " is Victorious!");
+      return;
     }
     else
     {
