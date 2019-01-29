@@ -8,98 +8,10 @@ public class BattleGame
 {
   public static void main(String args[]) throws InterruptedException, IOException
   {
-    mainMenu();
+    menuText.mainMenu();
   }
 
-  private static void mainMenu() throws InterruptedException, IOException
-  {
-    System.out.println("▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ \n" + 
-            "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n" + 
-            "\n" + 
-            "　 　 　 　 　 ▒█░░▒█ █▀▀ █░░ █▀▀ █▀▀█ █▀▄▀█ █▀▀ 　 ▀▀█▀▀ █▀▀█ 　 \n" + 
-            "　 　 　 　 　 ▒█▒█▒█ █▀▀ █░░ █░░ █░░█ █░▀░█ █▀▀ 　 ░▒█░░ █░░█ 　 \n" + 
-            "　 　 　 　 　 ▒█▄▀▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀▀ ▀░░░▀ ▀▀▀ 　 ░▒█░░ ▀▀▀▀ 　 \n" + 
-            "\n" + 
-            "▒█░░▒█ █▀▀█ █▀▀█ █▀▀█ ░▀░ █▀▀█ █▀▀█ 　 ▒█▀▀█ █▀▀█ ▀▀█▀▀ ▀▀█▀▀ █░░ █▀▀ █▀▀ \n" + 
-            "▒█▒█▒█ █▄▄█ █▄▄▀ █▄▄▀ ▀█▀ █░░█ █▄▄▀ 　 ▒█▀▀▄ █▄▄█ ░░█░░ ░░█░░ █░░ █▀▀ ▀▀█ \n" + 
-            "▒█▄▀▄█ ▀░░▀ ▀░▀▀ ▀░▀▀ ▀▀▀ ▀▀▀▀ ▀░▀▀ 　 ▒█▄▄█ ▀░░▀ ░░▀░░ ░░▀░░ ▀▀▀ ▀▀▀ ▀▀▀ \n" + 
-            "\n" + 
-            "▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ \n" + 
-            "█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n" + 
-            "                      Press any key to continue...");
-    @SuppressWarnings("resource")
-    String scan = new Scanner(System.in).nextLine();
-    spacing();
-    printSubMenu();
-  }
-
-  private static void spacing()
-  {
-    for (int i = 0; i < 20; i++)
-    {
-      System.out.println("");
-    }    
-  }
-
-  @SuppressWarnings("resource")
-  private static void printSubMenu() throws InterruptedException
-  {
-    System.out.println("\n================================\n"
-            + "Where do you want to go:\n"
-            + "\nStart Game............[1]"
-            + "\nInstructions..........[2]"
-            + "\nCredits...............[3]"
-            + "\nClass statistics......[4]"
-            + "\n================================");
-    Scanner input = new Scanner(System.in);
-    int scan = input.nextInt();
-    subMenuChose(scan);
-  }
-
-  private static void subMenuChose(int scan) throws InterruptedException
-  {
-    if (scan == 1)
-    {
-      startGame();
-    }
-    else if (scan == 2) {
-      showInstruction();
-    }
-    else if (scan == 3) {
-      showCredits();
-    }
-    else if (scan == 4) {
-      showStatistics();
-    } 
-  }
-
-  private static void showInstruction()
-  {
-    System.out.println("\n================================\n"
-            + "This is a tour based gameplay."
-            + "The goal is to kill the other players warrior."
-            + "At the beggining you choose "
-            + "\n================================");
-  }
-
-  private static void showCredits()
-  {
-    System.out.println("\n================================\n"
-            + "Actually I (Jacek Lajdecki) am the only one credit LOL"
-            + "\n================================");
-  }
-
-  private static void showStatistics()
-  {
-    System.out.println("\n================================\n"
-            + "Statistics: Berserker  Tank  Wizzard"
-            + "\nHealth:       1000     1200    800  "
-            + "\nMax Attack:   140      100     200  "
-            + "\nMax Defense:  30       60      20  "
-            + "\n================================");
-  }
-
-  private static void startGame() throws InterruptedException
+  static void startGame() throws InterruptedException
   {
     Scanner user_input = new Scanner(System.in);
 
@@ -176,7 +88,6 @@ class Warrior
 
   public static int Attack(Warrior warrior)
   {
-
     return new Random().nextInt(warrior.attkMax + 1 - 0) + 0;
   }
 
