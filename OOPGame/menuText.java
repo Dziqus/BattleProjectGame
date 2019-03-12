@@ -1,14 +1,24 @@
 package OOPGame;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
+
+import sun.net.NetworkServer;
 
 public class menuText
 {
-  public static void filePrinter(String fileName)
+  public static String filePrinter(String fileName) throws FileNotFoundException, IOException
   {
+    Path path = Paths.get("TextMenus/"+fileName);
+    return new String (Files.readAllBytes(path));
+    
+    /*
     try (BufferedReader br = new BufferedReader(new FileReader("TextMenus/"+fileName)))
     {
       String line = null;
@@ -17,20 +27,7 @@ public class menuText
         System.out.println(line);
       }
       return;
-    }
-    catch (IOException e)
-    {
-      e.printStackTrace();
-    }
-  }
-
-  @SuppressWarnings("resource")
-  public static void homeScreen() throws InterruptedException, IOException
-  {
-    filePrinter("HomeScreen.txt");
-    new Scanner(System.in).nextLine();
-    spacing();
-    printSubMenu();
+    }*/
   }
 
   private static void spacing()
@@ -42,9 +39,16 @@ public class menuText
   }
 
   @SuppressWarnings("resource")
-  private static void printSubMenu() throws InterruptedException
+  public static void actionMenu() throws FileNotFoundException, IOException
   {
-    filePrinter("MainMenu.txt");
+    System.out.println(filePrinter("BattleActionMenu.txt"));
+    new Scanner(System.in).nextLine();
+  }
+
+  @SuppressWarnings("resource")
+  private static void printSubMenu() throws InterruptedException, FileNotFoundException, IOException
+  {
+    System.out.println(filePrinter("MainMenu.txt"));
     Scanner input = new Scanner(System.in);
     int scan = input.nextInt();
     spacing();
@@ -59,42 +63,31 @@ public class menuText
     }
     else if (scan == 2)
     {
-      showInstruction();
+      testPrinting("Instructions.txt");
     }
     else if (scan == 3)
     {
-      showCredits();
+      testPrinting("Credits.txt");
     }
     else if (scan == 4)
     {
-      showStatistics();
+      testPrinting("ClassStats.txt");
     }
   }
-
+  
   @SuppressWarnings("resource")
-  private static void showInstruction() throws InterruptedException
+  public static void testPrinting(String filename)
   {
-    filePrinter("Instructions.txt");
-    new Scanner(System.in).nextLine();
-    spacing();
-    printSubMenu();
-  }
-
-  @SuppressWarnings("resource")
-  private static void showCredits() throws InterruptedException
-  {
-    filePrinter("Credits.txt");
-    new Scanner(System.in).nextLine();
-    spacing();
-    printSubMenu();
-  }
-
-  @SuppressWarnings("resource")
-  private static void showStatistics() throws InterruptedException
-  {
-    filePrinter("ClassStats.txt");
-    new Scanner(System.in).nextLine();
-    spacing();
-    printSubMenu();
+    try
+    {
+      System.out.println(filePrinter(filename));
+      new Scanner(System.in).nextLine();
+      spacing();
+      printSubMenu();
+    }
+    catch (Exception ex)
+    {
+      ex.printStackTrace();
+    }
   }
 }

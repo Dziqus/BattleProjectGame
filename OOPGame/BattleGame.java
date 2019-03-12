@@ -12,7 +12,7 @@ public class BattleGame
 {
   public static void main(String args[]) throws InterruptedException, IOException
   {
-    menuText.homeScreen();
+    menuText.testPrinting("HomeScreen.txt");
   }
 
   static void startGame() throws InterruptedException
@@ -46,7 +46,7 @@ public class BattleGame
 
   private static int chosingClass(Scanner user_input)
   {
-    menuText.filePrinter("ClassChooser.txt");
+    menuText.testPrinting("ClassChooser.txt");
     while (!user_input.hasNextInt())
     {
       System.out.println("Input is not a number!");
