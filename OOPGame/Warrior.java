@@ -1,0 +1,51 @@
+package OOPGame;
+
+import java.util.Random;
+
+public class Warrior {
+
+	public String name;
+	public int health;
+	public int attkMax;
+	public int blckMax;
+	public int healthPotions = 3;
+
+	public Warrior(String Name, int Health, int AttkMax, int BlckMax) {
+		name = Name;
+		health = Health;
+		attkMax = AttkMax;
+		blckMax = BlckMax;
+	}
+
+	public static void classChanger(Warrior warrior, int chosed) {
+		if (chosed == 1) {
+			warrior.health = 1000;
+			warrior.attkMax = 140;
+			warrior.blckMax = 30;
+		} else if (chosed == 2) {
+			warrior.health = 1200;
+			warrior.attkMax = 100;
+			warrior.blckMax = 60;
+		} else if (chosed == 3) {
+			warrior.health = 700;
+			warrior.attkMax = 200;
+			warrior.blckMax = 20;
+		} else {
+			System.out.println("Wrong class!");
+		}
+	}
+
+	public static int Attack(Warrior warrior) {
+		return new Random().nextInt(warrior.attkMax + 1 - 0) + 0;
+	}
+
+	public static int Block(Warrior warrior) {
+		return new Random().nextInt(warrior.blckMax + 1 - 0) + 0;
+	}
+
+	public static int HealValue(Warrior warrior) {
+		warrior.healthPotions -= 1;
+		return new Random().nextInt(100 + 1 - 20) + 20;
+	}
+}
+	
