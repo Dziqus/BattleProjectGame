@@ -1,4 +1,4 @@
-package OOPGame;
+package oopGame;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class menuText {
 		}
 	}
 	
-	private static String[] menus = {"BattleActionMenu.txt", "ClassChooser.txt"};
+	private static String[] blacklistedMenus = {"BattleActionMenu.txt", "ClassChooser.txt", "skills"};
 
 	public static void printingText(String filename) 
 	{
@@ -75,6 +75,6 @@ public class menuText {
 	
 	public static boolean checkIfStringContainsList(String input)
 	{
-		return Arrays.stream(menus).parallel().anyMatch(input::contains);
+		return Arrays.stream(blacklistedMenus).parallel().anyMatch(input::contains);
 	}
 }

@@ -1,9 +1,10 @@
-package OOPGame;
+package oopGame;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import OOPGame.menuText;
+
+import oopGame.menuText;
 
 public class BattleGame {
 	public static void main(String args[]) throws InterruptedException, IOException {
@@ -15,12 +16,12 @@ public class BattleGame {
 
 		System.out.print("Name the first warrior:");
 		String input1 = user_input.next();
-		Warrior warrior1 = new Warrior(input1, 100, 100, 100);
+		Warrior warrior1 = new Warrior(input1, 100, 100, 100, 10, "");
 		Warrior.classChanger(warrior1, chosingClass(user_input));
 
 		System.out.print("Name the second warrior:");
 		String input2 = user_input.next();
-		Warrior warrior2 = new Warrior(input2, 100, 100, 100);
+		Warrior warrior2 = new Warrior(input2, 100, 100, 100, 10, "");
 		Warrior.classChanger(warrior2, chosingClass(user_input));
 
 		checkWarriorName(warrior1, warrior2);
@@ -78,7 +79,8 @@ public class BattleGame {
 		}
 	}
 
-	private static void actionGoing(Warrior warrior1, Warrior warrior2, int action) throws InterruptedException {
+	@SuppressWarnings("resource")
+	private static void actionGoing(Warrior warrior1, Warrior warrior2, int action) throws InterruptedException, FileNotFoundException, IOException {
 		if (action == 1) {
 			getAttackResult(warrior1, warrior2, damageRandomizer(warrior1, warrior2, action));
 			checkWhoWin(warrior1, warrior2);
@@ -92,7 +94,17 @@ public class BattleGame {
 			warrior1.health += heal;
 			System.out.println("Warrior " + warrior1.name + " healed for " + heal + ". Current Health is "
 					+ warrior1.health + "\nYou have " + warrior1.healthPotions + " Health Potions left");
+		} else if (action == 4) {
+			System.out.println(menuText.filePrinter("skills/"+warrior1.className+"Skills.txt").replace("warriorName", warrior1.name));
+			int skill = new Scanner(System.in).nextInt();
+			if (skill == 1) {
+				getAttackResult(warrior1, warrior2, Warrior.wizzardFireball(warrior1));
+				System.out.println("You have "+warrior1.mana);
+				checkWhoWin(warrior1, warrior2);
+				getAttackResult(warrior2, warrior1, damageRandomizer(warrior2, warrior1, 0));
+			}
 		}
+		
 	}
 
 	private static void getAttackResult(Warrior warriorA, Warrior warriorB, int damage) throws InterruptedException {
@@ -112,9 +124,9 @@ public class BattleGame {
 		int war1AtkAmt = Warrior.Attack(warrior1);
 		int war2BlkAmt = Warrior.Block(warrior2);
 		if (buff == 1) {
-			war1AtkAmt += 30;
+			war1AtkAmt += 10;
 		} else if (buff == 2) {
-			war2BlkAmt += 30;
+			war2BlkAmt += 10;
 		}
 		int damage = war1AtkAmt - war2BlkAmt;
 		return damage;
