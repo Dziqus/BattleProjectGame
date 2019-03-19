@@ -2,6 +2,7 @@ package oopGame;
 
 import java.util.Random;
 
+
 public class Warrior {
 
 	public String name;
@@ -58,7 +59,30 @@ public class Warrior {
 		return new Random().nextInt(100 + 1 - 20) + 20;
 	}
 	
-	public static int wizzardFireball(Warrior warrior) {
+	public static int proffesionFinder(Warrior warrior ,int skill)
+	{
+	  
+            switch (warrior.className)
+            {
+              case "wizzard":
+                if (skill == 1)
+                {
+                  skill = wizzardFireball(warrior);
+                }
+                break;
+
+              case "berserker":
+                
+                break;
+                
+              case "tank":
+                
+                break;
+            }
+	  return skill;
+	}
+	
+	private static int wizzardFireball(Warrior warrior) {
 		warrior.mana -= 15;
 		return 200;
 	}
