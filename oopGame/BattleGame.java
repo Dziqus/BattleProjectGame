@@ -6,6 +6,16 @@ import oopGame.menuText;
 
 public class BattleGame
 {
+  private static void wait(int time)
+  {
+    long startTime = System.currentTimeMillis();
+    while (true) 
+    {
+      long now = System.currentTimeMillis();
+      if(now - startTime >= time) break;
+    }
+  }
+  
   public static void main(String args[])
   {
     menuText.printingText("HomeScreen.txt");
@@ -14,9 +24,11 @@ public class BattleGame
   static void startGame() throws InterruptedException
   {
     Scanner user_input = new Scanner(System.in);
-//    for (int iWarriors = 0; iWarriors < 2; iWarriors++)
+//    for (int iWarrior = 1; iWarrior < 3; iWarrior++)
 //    {
-//      
+//      nameWarrior(iWarrior);
+//      Warrior warrior = new Warrior(user_input.next(), 100, 100, 100, 10, "");
+//      Warrior.classChanger(warrior, chosingClass(user_input));
 //    }
     System.out.print("Name the first warrior:");
     Warrior warrior1 = new Warrior(user_input.next(), 100, 100, 100, 10, "");
@@ -29,6 +41,20 @@ public class BattleGame
     checkWarriorName(warrior1, warrior2);
     startFight(warrior1, warrior2);
   }
+  
+  @SuppressWarnings("unused")
+  private static void nameWarrior(int pos)
+  {
+    String spos = null;
+    if (pos == 1)
+    {
+      spos = "first";
+    }
+    else {
+      spos = "second";
+    }
+    System.out.println("Name the" + spos + "warrior");
+  }
 
   private static void checkWarriorName(Warrior warrior1, Warrior warrior2) throws InterruptedException
   {
@@ -38,7 +64,7 @@ public class BattleGame
       warrior2.name += "2";
       System.out.println("Unfortunately warriors names are the same so we changed it to " + warrior1.name
               + " and " + warrior2.name);
-      Thread.sleep(1000);
+      wait(1000);
     }
   }
 
@@ -67,12 +93,11 @@ public class BattleGame
   private static void actionMenu(Warrior warriorA, Warrior warriorB, Scanner actionChoser)
   {
     try {
-    String menu = menuText.filePrinter("BattleActionMenu.txt");
-    System.out.println(menu.replace("warriorName", warriorA.name));
+    System.out.println(menuText.filePrinter("BattleActionMenu.txt".replace("warriorName", warriorA.name)));
     checkIfCanDoAction(warriorA, actionChoser);
     int action1 = actionChoser.nextInt();
     actionGoing(warriorA, warriorB, action1);
-    Thread.sleep(500);
+    wait(500);
     }
     catch (Exception ex) {
       System.out.println(ex);
@@ -145,15 +170,15 @@ public class BattleGame
       if (damage <= 0)
       {
         System.out.println("\nWarrior " + warriorB.name + " blocked the attack!");
-        Thread.sleep(1000);
+        wait(1000);
       }
       else
       {
         System.out.println("\nWarrior " + warriorA.name + " did " + damage + " to " + warriorB.name);
         warriorB.health -= damage;
-        Thread.sleep(500);
+        wait(500);
         System.out.println("Warrior " + warriorB.name + " has " + warriorB.health + " Health");
-        Thread.sleep(1000);
+        wait(1000);
       }
     }
     catch (Exception ex)

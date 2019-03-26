@@ -1,19 +1,27 @@
 package oopGame;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class menuText
 {
-  public static String filePrinter(String fileName) throws FileNotFoundException, IOException
+  public static String filePrinter(String fileName)
   {
-    Path path = Paths.get("TextMenus/" + fileName);
-    return new String(Files.readAllBytes(path));
+    String str = null;
+    try
+    {
+      str = new String(Files.readAllBytes(Paths.get("TextMenus/" + fileName)));
+    }
+    catch (IOException ex)
+    {
+      System.out.println();
+      ex.printStackTrace();
+    }
+    return str;
   }
 
   private static void spacing()
@@ -25,7 +33,7 @@ public class menuText
   }
 
   @SuppressWarnings("resource")
-  private static void printSubMenu() throws InterruptedException, FileNotFoundException, IOException
+  private static void printSubMenu() throws InterruptedException
   {
     System.out.println(filePrinter("MainMenu.txt"));
     Scanner input = new Scanner(System.in);
@@ -34,7 +42,7 @@ public class menuText
     subMenuChose(scan);
   }
 
-  private static void subMenuChose(int scan) throws InterruptedException, FileNotFoundException, IOException
+  private static void subMenuChose(int scan) throws InterruptedException
   {
     if (scan == 1)
     {
@@ -66,16 +74,17 @@ public class menuText
         printSubMenu();
       }
     }
-    catch (Exception ex)
+    catch (InterruptedException ex)
     {
+      System.out.println("The action was interrupted");
       ex.printStackTrace();
     }
   }
   
-  private static String[] blacklistedMenus = {"BattleActionMenu.txt", "ClassChooser.txt", "skills"};
+  private static List<String> blacklistedMenus = Arrays.asList("BattleActionMenu.txt", "ClassChooser.txt", "skills");
 
   private static boolean checkIfStringContainsList(String input)
   {
-    return Arrays.stream(blacklistedMenus).parallel().anyMatch(input::contains);
+    return blacklistedMenus.contains(input);
   }
 }
