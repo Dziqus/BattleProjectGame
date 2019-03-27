@@ -1,8 +1,8 @@
-package oopGame;
+package OOPGame;
 
 import java.util.Scanner;
 
-import oopGame.menuText;
+import OOPGame.menuText;
 
 public class BattleGame
 {

@@ -1,4 +1,4 @@
-package oopGame;
+package OOPGame;
 
 import java.io.IOException;
 import java.nio.file.Files;
