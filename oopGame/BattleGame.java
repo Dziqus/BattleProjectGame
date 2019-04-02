@@ -1,21 +1,20 @@
-package OOPGame;
+package oopGame;
 
 import java.util.Scanner;
-
-import OOPGame.menuText;
 
 public class BattleGame
 {
   private static void wait(int time)
   {
     long startTime = System.currentTimeMillis();
-    while (true) 
+    while (true)
     {
       long now = System.currentTimeMillis();
-      if(now - startTime >= time) break;
+      if (now - startTime >= time)
+        break;
     }
   }
-  
+
   public static void main(String args[])
   {
     menuText.printingText("HomeScreen.txt");
@@ -24,12 +23,6 @@ public class BattleGame
   static void startGame() throws InterruptedException
   {
     Scanner user_input = new Scanner(System.in);
-//    for (int iWarrior = 1; iWarrior < 3; iWarrior++)
-//    {
-//      nameWarrior(iWarrior);
-//      Warrior warrior = new Warrior(user_input.next(), 100, 100, 100, 10, "");
-//      Warrior.classChanger(warrior, chosingClass(user_input));
-//    }
     System.out.print("Name the first warrior:");
     Warrior warrior1 = new Warrior(user_input.next(), 100, 100, 100, 10, "");
     Warrior.classChanger(warrior1, chosingClass(user_input));
@@ -41,7 +34,7 @@ public class BattleGame
     checkWarriorName(warrior1, warrior2);
     startFight(warrior1, warrior2);
   }
-  
+
   @SuppressWarnings("unused")
   private static void nameWarrior(int pos)
   {
@@ -50,7 +43,8 @@ public class BattleGame
     {
       spos = "first";
     }
-    else {
+    else
+    {
       spos = "second";
     }
     System.out.println("Name the" + spos + "warrior");
@@ -92,14 +86,16 @@ public class BattleGame
 
   private static void actionMenu(Warrior warriorA, Warrior warriorB, Scanner actionChoser)
   {
-    try {
-    System.out.println(menuText.filePrinter("BattleActionMenu.txt".replace("warriorName", warriorA.name)));
-    checkIfCanDoAction(warriorA, actionChoser);
-    int action1 = actionChoser.nextInt();
-    actionGoing(warriorA, warriorB, action1);
-    wait(500);
+    try
+    {
+      System.out.println(menuText.filePrinter("BattleActionMenu.txt".replace("warriorName", warriorA.name)));
+      checkIfCanDoAction(warriorA, actionChoser);
+      int action1 = actionChoser.nextInt();
+      actionGoing(warriorA, warriorB, action1);
+      wait(500);
     }
-    catch (Exception ex) {
+    catch (Exception ex)
+    {
       System.out.println(ex);
     }
   }

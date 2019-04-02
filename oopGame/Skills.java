@@ -1,4 +1,4 @@
-package OOPGame;
+package oopGame;
 
 public class Skills
 {
