@@ -1,4 +1,4 @@
-package oopGame;
+package oopgame;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,8 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class menuText
+public class MenuText
 {
+  private MenuText()
+  {
+    throw new IllegalStateException("Utility class");
+  }
+  
   public static String filePrinter(String fileName)
   {
     String str = null;
@@ -18,7 +23,6 @@ public class menuText
     }
     catch (IOException ex)
     {
-      System.out.println();
       ex.printStackTrace();
     }
     return str;
@@ -33,7 +37,7 @@ public class menuText
   }
 
   @SuppressWarnings("resource")
-  private static void printSubMenu() throws InterruptedException
+  private static void printSubMenu()
   {
     System.out.println(filePrinter("MainMenu.txt"));
     Scanner input = new Scanner(System.in);
@@ -42,7 +46,7 @@ public class menuText
     subMenuChose(scan);
   }
 
-  private static void subMenuChose(int scan) throws InterruptedException
+  private static void subMenuChose(int scan)
   {
     if (scan == 1)
     {
@@ -64,20 +68,12 @@ public class menuText
 
   public static void printingText(String filename)
   {
-    try
+    System.out.println(filePrinter(filename));
+    while (!checkIfStringContainsList(filename))
     {
-      System.out.println(filePrinter(filename));
-      while (!checkIfStringContainsList(filename))
-      {
-        new Scanner(System.in).nextLine();
-        spacing();
-        printSubMenu();
-      }
-    }
-    catch (InterruptedException ex)
-    {
-      System.out.println("The action was interrupted");
-      ex.printStackTrace();
+      new Scanner(System.in).nextLine();
+      spacing();
+      printSubMenu();
     }
   }
   

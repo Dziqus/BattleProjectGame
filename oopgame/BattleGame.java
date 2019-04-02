@@ -1,9 +1,14 @@
-package oopGame;
+package oopgame;
 
 import java.util.Scanner;
 
 public class BattleGame
 {
+  public static void main(String[] args)
+  {
+    MenuText.printingText("HomeScreen.txt");
+  }
+
   private static void wait(int time)
   {
     long startTime = System.currentTimeMillis();
@@ -11,46 +16,28 @@ public class BattleGame
     {
       long now = System.currentTimeMillis();
       if (now - startTime >= time)
+      {
         break;
+      }
     }
   }
 
-  public static void main(String args[])
+  public static void startGame()
   {
-    menuText.printingText("HomeScreen.txt");
-  }
-
-  static void startGame() throws InterruptedException
-  {
-    Scanner user_input = new Scanner(System.in);
+    Scanner userInput = new Scanner(System.in);
     System.out.print("Name the first warrior:");
-    Warrior warrior1 = new Warrior(user_input.next(), 100, 100, 100, 10, "");
-    Warrior.classChanger(warrior1, chosingClass(user_input));
+    Warrior warrior1 = new Warrior(userInput.next(), 100, 100, 100, 10, "");
+    Warrior.classChanger(warrior1, chosingClass(userInput));
 
     System.out.print("Name the second warrior:");
-    Warrior warrior2 = new Warrior(user_input.next(), 100, 100, 100, 10, "");
-    Warrior.classChanger(warrior2, chosingClass(user_input));
+    Warrior warrior2 = new Warrior(userInput.next(), 100, 100, 100, 10, "");
+    Warrior.classChanger(warrior2, chosingClass(userInput));
 
     checkWarriorName(warrior1, warrior2);
     startFight(warrior1, warrior2);
   }
 
-  @SuppressWarnings("unused")
-  private static void nameWarrior(int pos)
-  {
-    String spos = null;
-    if (pos == 1)
-    {
-      spos = "first";
-    }
-    else
-    {
-      spos = "second";
-    }
-    System.out.println("Name the" + spos + "warrior");
-  }
-
-  private static void checkWarriorName(Warrior warrior1, Warrior warrior2) throws InterruptedException
+  private static void checkWarriorName(Warrior warrior1, Warrior warrior2)
   {
     if (warrior1.name.equals(warrior2.name))
     {
@@ -62,15 +49,15 @@ public class BattleGame
     }
   }
 
-  private static int chosingClass(Scanner user_input)
+  private static int chosingClass(Scanner userInput)
   {
-    menuText.printingText("ClassChooser.txt");
-    while (!user_input.hasNextInt())
+    MenuText.printingText("ClassChooser.txt");
+    while (!userInput.hasNextInt())
     {
       System.out.println("Input is not a number!");
-      user_input.nextLine();
+      userInput.nextLine();
     }
-    return user_input.nextInt();
+    return userInput.nextInt();
   }
 
   private static void startFight(Warrior warriorA, Warrior warriorB)
@@ -88,7 +75,7 @@ public class BattleGame
   {
     try
     {
-      System.out.println(menuText.filePrinter("BattleActionMenu.txt".replace("warriorName", warriorA.name)));
+      System.out.println(MenuText.filePrinter("BattleActionMenu.txt".replace("warriorName", warriorA.name)));
       checkIfCanDoAction(warriorA, actionChoser);
       int action1 = actionChoser.nextInt();
       actionGoing(warriorA, warriorB, action1);
@@ -107,7 +94,7 @@ public class BattleGame
       System.out.println("Input is not a number!");
       actionChoser.nextLine();
     }
-    while (!(warriorA.healthPotions > 0))
+    while (warriorA.healthPotions != 0)
     {
       System.out.println("You dont have any Health Potions left.");
       actionChoser.nextInt();
@@ -140,7 +127,7 @@ public class BattleGame
     {
       try
       {
-        System.out.println(menuText.filePrinter("skills/" + warrior1.className + "Skills.txt")
+        System.out.println(MenuText.filePrinter("skills/" + warrior1.className + "Skills.txt")
                 .replace("warriorName", warrior1.name));
       }
       catch (Exception ex)
@@ -195,8 +182,7 @@ public class BattleGame
     {
       war2BlkAmt += 10;
     }
-    int damage = war1AtkAmt - war2BlkAmt;
-    return damage;
+    return war1AtkAmt - war2BlkAmt;
   }
 
   private static void checkWhoWin(Warrior warrior1, Warrior warrior2)
@@ -204,16 +190,10 @@ public class BattleGame
     if (warrior1.health <= 0)
     {
       System.out.println("\nWarrior " + warrior1.name + " has died and " + warrior2.name + " is Victorious!");
-      return;
     }
     else if (warrior2.health <= 0)
     {
       System.out.println("\nWarrior " + warrior2.name + " has died and " + warrior1.name + " is Victorious!");
-      return;
-    }
-    else
-    {
-      return;
     }
   }
 }
