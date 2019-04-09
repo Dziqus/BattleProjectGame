@@ -1,4 +1,4 @@
-package oopgame;
+package oopGame;
 
 import java.util.Scanner;
 
@@ -118,7 +118,7 @@ public class BattleGame
     }
     else if (action == 3)
     {
-      int heal = Warrior.HealValue(warrior1);
+      int heal = Warrior.healValue(warrior1);
       warrior1.health += heal;
       System.out.println("Warrior " + warrior1.name + " healed for " + heal + ". Current Health is "
               + warrior1.health + "\nYou have " + warrior1.healthPotions + " Health Potions left");
@@ -172,8 +172,8 @@ public class BattleGame
 
   private static int damageRandomizer(Warrior warrior1, Warrior warrior2, int buff)
   {
-    int war1AtkAmt = Warrior.Attack(warrior1);
-    int war2BlkAmt = Warrior.Block(warrior2);
+    int war1AtkAmt = Warrior.attack(warrior1);
+    int war2BlkAmt = Warrior.block(warrior2);
     if (buff == 1)
     {
       war1AtkAmt += 10;

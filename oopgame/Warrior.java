@@ -1,4 +1,4 @@
-package oopgame;
+package oopGame;
 
 import java.util.Random;
 
@@ -55,17 +55,17 @@ public class Warrior
     }
   }
 
-  public static int Attack(Warrior warrior)
+  public static int attack(Warrior warrior)
   {
     return new Random().nextInt(warrior.attkMax + 1 - 0) + 0;
   }
 
-  public static int Block(Warrior warrior)
+  public static int block(Warrior warrior)
   {
     return new Random().nextInt(warrior.blckMax + 1 - 0) + 0;
   }
 
-  public static int HealValue(Warrior warrior)
+  public static int healValue(Warrior warrior)
   {
     warrior.healthPotions -= 1;
     return new Random().nextInt(100 + 1 - 20) + 20;
@@ -90,6 +90,10 @@ public class Warrior
       case "tank":
 
         break;
+        
+      default:
+    	  
+    	  break;
     }
     return skill;
   }

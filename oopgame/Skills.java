@@ -1,10 +1,16 @@
-package oopgame;
+package oopGame;
 
 public class Skills
 {
-  public static int fireball(Warrior warrior)
+  public int skillID;
+  public int damage;
+  public int manaCost;
+  
+  public void fireball()
   {
-    warrior.mana -= 15;
-    return 200;
+    skillID = 1;
+    damage = 200;
+    manaCost = 15;
   }
+
 }
