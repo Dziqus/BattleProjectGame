@@ -75,7 +75,7 @@ public class BattleGame
   {
     try
     {
-      System.out.println(MenuText.filePrinter("BattleActionMenu.txt".replace("warriorName", warriorA.name)));
+      System.out.println(MenuText.filePrinter("BattleActionMenu.txt").replace("warriorName", warriorA.name));
       checkIfCanDoAction(warriorA, actionChoser);
       int action1 = actionChoser.nextInt();
       actionGoing(warriorA, warriorB, action1);
@@ -94,11 +94,11 @@ public class BattleGame
       System.out.println("Input is not a number!");
       actionChoser.nextLine();
     }
-    while (warriorA.healthPotions != 0)
-    {
-      System.out.println("You dont have any Health Potions left.");
-      actionChoser.nextInt();
-    }
+//    while (warriorA.healthPotions != 0)
+//    {
+//      System.out.println("You dont have any Health Potions left.");
+//      actionChoser.nextInt();
+//    }
   }
 
   @SuppressWarnings("resource")
