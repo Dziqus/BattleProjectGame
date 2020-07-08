@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import oopGame.Warrior;
+import oopgame.Warrior;
 
 public class BattleTest
 {
